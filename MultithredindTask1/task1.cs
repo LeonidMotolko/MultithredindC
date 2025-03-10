@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-class Program
+class task1
 {
     static void Main()
     {
@@ -14,29 +14,24 @@ class Program
             Console.Write("Введите имя метода: ");
             string methodName = Console.ReadLine();
 
-            // Получаем тип по имени класса
             Type type = Type.GetType(className);
             if (type == null)
             {
                 throw new ArgumentException("Класс не найден.");
             }
 
-            // Создаём экземпляр класса
             object instance = Activator.CreateInstance(type);
 
             Console.Write("Введите аргументы метода через пробел: ");
             string[] args = Console.ReadLine().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            // Ищем метод с соответствующим количеством параметров
-            MethodInfo method = type.GetMethods()
-                .FirstOrDefault(m => m.Name == methodName && m.GetParameters().Length == args.Length);
+            MethodInfo method = type.GetMethods().FirstOrDefault(m => m.Name == methodName && m.GetParameters().Length == args.Length);
 
             if (method == null)
             {
                 throw new ArgumentException("Метод не найден или количество аргументов не совпадает.");
             }
 
-            // Получаем параметры метода
             ParameterInfo[] parameters = method.GetParameters();
             object[] convertedArgs = new object[parameters.Length];
 
@@ -52,10 +47,8 @@ class Program
                 }
             }
 
-            // Вызываем метод
             object result = method.Invoke(instance, convertedArgs);
 
-            // Если метод что-то возвращает, выводим результат
             if (method.ReturnType != typeof(void))
             {
                 Console.WriteLine("Результат выполнения: " + result);
