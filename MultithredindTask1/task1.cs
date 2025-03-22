@@ -1,4 +1,10 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
+
+/// Инвокатор методов.
+/// Создать консольное приложение, которое позволяет вводить имя класса и имя метода и аргументы.
+/// Приложение должно создавать экземпляр указанного класса и вызывать указанный метод, передавая в него указанные параметры. 
+/// Предусмотреть обработку исключений в случае неверного ввода.
 
 class task1
 {
@@ -7,10 +13,10 @@ class task1
         try
         {
             Console.Write("Введите имя класса: ");
-            string className = Console.ReadLine();
+            var className = Console.ReadLine();
 
             Console.Write("Введите имя метода: ");
-            string methodName = Console.ReadLine();
+            var methodName = Console.ReadLine();
 
             Type type = Type.GetType(className);
             if (type == null)
@@ -56,5 +62,20 @@ class task1
         {
             Console.WriteLine("Ошибка: " + ex.Message);
         }
+    }
+}
+
+
+
+class TestClass
+{
+    public void SayHello()
+    {
+        Console.WriteLine("Привет, мир!");
+    }
+
+    public int Sum(int a, int b)
+    {
+        return a + b;
     }
 }
